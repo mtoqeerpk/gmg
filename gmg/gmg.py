@@ -93,7 +93,7 @@ import sys
 import subprocess
 #from obspy.segy.core import readSEGY
 from obspy import read  # FUTURE
-import pickle as Pickle
+import cPickle as Pickle
 from scipy import signal
 from fatiando.mesher import Polygon
 import plot_model
@@ -823,9 +823,9 @@ class Gmg(wx.Frame):
         '#% TREE ATTRIBUTES'
         self.root = self.tree.AddRoot("Layers:")
         self.tree.SetItemPyData(self.root, None)
-        self.tree_items = []
-#        tree_item = self.tree.AppendItem(self.root, "layer 1", ct_type=1)
-#        self.tree.SetItemPyData(tree_item, 0)
+        self.tree_items = ["Layer 1"]
+        tree_item = self.tree.AppendItem(self.root, "layer 1", ct_type=1)
+        self.tree.SetItemPyData(tree_item, 0)
         self.Bind(ct.EVT_TREE_ITEM_CHECKED, self.item_checked)
 
         self.error = 0.
@@ -895,24 +895,24 @@ class Gmg(wx.Frame):
 
     def frame_adjustment(self, event):
         """# %FIND WHICH FRAME IS REFERENCED & CHANGE SWITCH"""
+
         self.current_xlim = self.mcanvas.get_xlim()
         self.current_ylim = self.mcanvas.get_ylim()
         if event.Id == 601:
             if self.t_canvas is True:
                 self.tcanvas.set_visible(False)
-                # print "setting t_canvas to:"
-                # print self.t_canvas
+                print "setting t_canvas to:"
+                print self.t_canvas
                 self.t_canvas = False
             else:
                 self.t_canvas = True
                 self.tcanvas.set_visible(True)
-
         if event.Id == 602:
             if self.d_canvas is True:
                 self.dcanvas.set_visible(False)
                 self.d_canvas = False
-                # print "setting d_canvas to:"
-                # print self.d_canvas
+                print "setting d_canvas to:"
+                print self.d_canvas
             else:
                 self.d_canvas = True
                 self.dcanvas.set_visible(True)
@@ -920,8 +920,8 @@ class Gmg(wx.Frame):
             if self.nt_canvas is True:
                 self.ntcanvas.set_visible(False)
                 self.nt_canvas = False
-                # print "setting nt_canvas to:"
-                # print self.nt_canvas
+                print "setting nt_canvas to:"
+                print self.nt_canvas
             else:
                 self.nt_canvas = True
                 self.ntcanvas.set_visible(True)
@@ -1300,9 +1300,8 @@ class Gmg(wx.Frame):
         self.update()
 
     def on_begin_edit_label(self, event):
-        # print "self.i = %s" % self.i
-        # print event.GetItem()
-        pass
+        print "self.i = %s" % self.i
+        print event.GetItem()
 
     def on_end_edit_label(self, event):
         self.i = self.tree.GetPyData(event.GetItem())
@@ -1987,7 +1986,7 @@ class Gmg(wx.Frame):
         self.obs_mag_colors[self.obs_mag_count] = str(self.color)
 
         self.obs_mag = np.genfromtxt(obs_m_input, delimiter=' ', dtype=float)
-        # print "self.obs_mag = %s" % self.obs_mag
+        print "self.obs_mag = %s" % self.obs_mag
         self.obs_mz = self.obs_mag[:, 1]
         self.obs_mag_list_save[self.obs_mag_count] = self.obs_mag
         self.obs_mag_list_save.append([])
@@ -2056,8 +2055,8 @@ class Gmg(wx.Frame):
         answer = seismic_data_box.ShowModal()
         self.d = seismic_data_box.dimensions
         self.segy_name = seismic_data_box.segy_name_input
-        # print "self.d = %s" % self.d
-        # print "self.segy_name = %s" % self.segy_name
+        print "self.d = %s" % self.d
+        print "self.segy_name = %s" % self.segy_name
         self.sx1, self.sx2, self.sz1, self.sz2 = self.d
         self.load_segy(self)
 
@@ -2097,9 +2096,9 @@ class Gmg(wx.Frame):
 
             self.segy_count = self.segy_count + 1
         except:
-            # print "**********"
-            # print "LOAD ERROR"
-            # print "**********"
+            print "**********"
+            print "LOAD ERROR"
+            print "**********"
             raise
 
     def remove_all_segy(self, event):
@@ -2124,8 +2123,7 @@ class Gmg(wx.Frame):
     def segy_color_adjustment(self, event):
         if event.Id == 901:
             if self.segy_on is False:
-                # print "no segy"
-                print("no segy")
+                print "no segy"
                 return 0
             else:
                 for s in range(0, len(self.segy_plot_list)):
@@ -2133,11 +2131,10 @@ class Gmg(wx.Frame):
                         self.segy_plot_list[s].set_cmap(cm.gray)
                 self.draw()
         else:
-            print("gain is a min value")
-
+            print "gain is a min value"
         if event.Id == 902:
             if self.segy_on is False:
-                print("no segy")
+                print "no segy"
                 return 0
             else:
                 for s in range(0, len(self.segy_plot_list)):
@@ -2147,7 +2144,7 @@ class Gmg(wx.Frame):
 
     def gain_increase(self, event):
         if self.segy_on is False:
-            # print "no segy"
+            print "no segy"
             return 0
         elif self.gain >= 0.5:
             self.gain = self.gain - 0.5
@@ -2156,14 +2153,14 @@ class Gmg(wx.Frame):
                 if self.segy_plot_list[s]:
                     self.segy_plot_list[s].set_clim(vmax=self.gain)
                     self.segy_plot_list[s].set_clim(vmin=self.gain_neg)
-            # print "gain down"
+            print "gain down"
             self.draw()
         else:
-            print("gain is a min value")
+            print "gain is a min value"
 
     def gain_decrease(self, event):
         if self.segy_on is False:
-            print("no segy")
+            print "no segy"
             return 0
         elif self.gain >= 0.5:
             self.gain = self.gain + 0.5
@@ -2172,10 +2169,10 @@ class Gmg(wx.Frame):
                 if self.segy_plot_list[s]:
                     self.segy_plot_list[s].set_clim(vmax=self.gain)
                     self.segy_plot_list[s].set_clim(vmin=self.gain_neg)
-                # print "gain down"
+                print "gain down"
             self.draw()
         else:
-            print("gain is a min value")
+            print "gain is a min value"
 
     # WELL DATA~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -2211,9 +2208,9 @@ class Gmg(wx.Frame):
         y2 = well_data[-1, -1].astype(float)
         well_x_location = well_data[1, 1]
 
-        # print "y1 = %s" % y1
-        # print "y2 = %s" % y2
-        # print "well_x_location = %s" % well_x_location
+        print "y1 = %s" % y1
+        print "y2 = %s" % y2
+        print "well_x_location = %s" % well_x_location
 
         wellx = (well_x_location, well_x_location)
         welly = (y1, y2)
@@ -2239,8 +2236,8 @@ class Gmg(wx.Frame):
         for i in range(2, len(well_data)):
             y = [well_data[i, 1].astype(float), well_data[i, 1].astype(float)]
             x = [well_data[1, 1].astype(float) - 1, well_data[1, 1].astype(float) + 1]
-            # print "y = %s" % y
-            # print "x = %s" % x
+            print "y = %s" % y
+            print "x = %s" % x
             '# %PLOT HORIZON LINE'
             self.horizons[self.well_count - 1][i] = self.mcanvas.plot(x, y, linestyle='-', linewidth='2', color='black')
             horizon_y_pos = well_data[i, 1].astype(float)
@@ -2432,7 +2429,7 @@ class Gmg(wx.Frame):
             x = (x1, x1)
             y = (y1, y2)
             self.contacts[i] = self.mcanvas.plot(x, y, linestyle='-', linewidth='2', color='black')
-        # print self.contacts
+        print self.contacts
         self.contact_data_list[self.contact_data_count] = self.contacts
         self.contact_data_list.append([])
 
@@ -2688,9 +2685,7 @@ class Gmg(wx.Frame):
         self.set_angle_a(self)
         self.set_angle_b(self)
         '#% COLOR CURRENTLY SELECTED NODE RED'
-        if self.boundary_lock_list[self.i] == 0:
-            # print "HIT THIS POINT"
-            self.current_node.set_offsets([new_x, new_y])
+        self.current_node.set_offsets([new_x, new_y])
 
         self.update_layer_data()
         self.update()
@@ -2718,15 +2713,14 @@ class Gmg(wx.Frame):
             self.y_input.SetValue(yt[self.index_node])
 
             '# %COLOR CURRENTLY SELECTED NODE RED'
-            # print "at this point"
             self.current_node.set_offsets([xt[self.index_node], yt[self.index_node]])
 
             'If pinch == TRUE pinch the node to next node'
             if self.pinch:
-                # print "pinch_node = true so doing pinch"
+                print "pinch_node = true so doing pinch"
                 'Get the node number and layer number and place them in "pinch_node_list" '
                 if self.pinch_count == 0:
-                    # print "pinch_count = 0"
+                    print "pinch_count = 0"
 
                     self.plotx = self.plotx_list[self.i]
                     self.ploty = self.ploty_list[self.i]
@@ -2765,12 +2759,7 @@ class Gmg(wx.Frame):
             self.y_input.SetValue(yt[self.index_node])
 
             '# %COLOR CURRENTLY SELECTED NODE RED'
-            # print "GOT HERE 1"
-            # print self.boundary_lock_list[self.i]
-            if self.boundary_lock_list[self.i] == 0:
-                # print "HIT1"
-                self.current_node.set_offsets([xt[self.index_node], yt[self.index_node]])
-
+            self.current_node.set_offsets([xt[self.index_node], yt[self.index_node]])
 
     def get_node_under_point(self, event):
         """# %GET THE INDEX VALUE OF THE NODE UNDER POINT IF IT IS WITHIN NODE_CLICK_LIMIT TOLERANCE OF CLICK"""
@@ -2798,7 +2787,7 @@ class Gmg(wx.Frame):
 
                 for i in range(0, len(node_list_x)):
                     if node_list_x[i] == xt[self.index_arg] and node_list_y[i] == yt[self.index_arg]:
-                        # %IF ONE OF THE NODES FROM LIST IS EQUAL TO A NODE FROM THE OTHER LAYER, THEN RETURN THE INDEX
+                        # %if one of the nodes from list is equal to a node from the other layer, then return the index
                         self.index_arg2_list[x] = i
                         self.pinch_switch = 1
 
@@ -2827,7 +2816,7 @@ class Gmg(wx.Frame):
             x, y = event.xdata, event.ydata  # get xy of new point
             xt = np.array(self.plotx)
             yt = np.array(self.ploty)
-            # # print "index node ="
+            # print "index node ="
             # print self.index_node
             if xt[self.index_node] == 0 and yt[self.index_node] != 0.001:
                 xt[self.index_node] = 0  # replace old x with new x
@@ -2874,16 +2863,9 @@ class Gmg(wx.Frame):
         self.ploty = yt
         self.polyline.set_data(self.plotx, self.ploty)
 
-        '# %SET CURRENT NODE (RED) MARKER POSITION'
-        if self.boundary_lock_list[self.i] == 1:
-            # print "AT THIS POINT"
-            self.current_node.set_offsets([x, y])
-        else:
-            # print "AT THIS POINT2"
-            self.current_node.set_offsets([xt[self.index_node], y])  # %IF NODE='LOCKED' THEN DON'T LET THE X POS CHANGE
+        self.current_node.set_offsets([x, y])
 
-        '''# %UPDATE LAYER DATA'''
-        self.update_layer_data()
+        self.update_layer_data()  # %UPDATE LAYER DATA
 
     def button_release(self, event):
         """# %WHEN MOUSE BUTTON IS RELEASED"""
@@ -2924,7 +2906,7 @@ class Gmg(wx.Frame):
             self.nextpoly.append([event.xdata, event.ydata])
             self.polyline.set_data(self.plotx, self.ploty)
 
-            '''# %UPDATE LAYER DATA AND PLOT'''
+            # %UPDATE LAYER DATA AND PLOT
             self.update_layer_data()
             self.update()
             self.draw()
@@ -2943,15 +2925,14 @@ class Gmg(wx.Frame):
             if ind >= self.node_click_limit:
                 return 0
             elif self.capture is True:
-                # print "capturing coordinates"
-                # print "x = %s" % xt[self.index_arg]
-                # print "y = %s" % yt[self.index_arg]
+                print "capturing coordinates"
+                print "x = %s" % xt[self.index_arg]
+                print "y = %s" % yt[self.index_arg]
                 self.linex.append(xt[self.index_arg])
                 self.liney.append(yt[self.index_arg])
             else:
-                pass
-                # print "x = %s" % xt[self.index_arg]
-                # print "y = %s" % yt[self.index_arg]
+                print "x = %s" % xt[self.index_arg]
+                print "y = %s" % yt[self.index_arg]
 
         'd = Delete node at mouse position'
         if event.key == 'd':
@@ -3888,8 +3869,19 @@ class Gmg(wx.Frame):
 
     def about_fat(self, event):
         """# %SHOW SOFTWARE INFORMATION"""
-        about = "About gmg"
-        dlg = wx.MessageDialog(self, about, "About", wx.OK | wx.ICON_INFORMATION)
+        about = ["GMG is an Open Source Graphical User Interface (GUI) designed principally for modelling 2D potential "
+                 "field (gravity and magnetic) profiles. The software also includes functions for loading XY data, "
+                 "seismic reflection SEGY data and exploration well horizons. The software therefore provides an "
+                 "integrated geological/geophysical interpretation package. It is anticipated that GMG will also be "
+                 "useful for teaching purposes. \n \n"
+                 "Data I/O is made as simple as possible using space delimited ASCII text files. \n \n"
+                 "The project was instigated after failing to find an adequate open source option (in which the source "
+                 "code can be viewed and modified by the user) for performing 2D geophysical modeling tasks.           "
+                 "Inspiration came from fatiando a terra and GMT. \n \n"
+                 "GMG was initially developed at the University of Oxford 2014-2017. \n \n"
+                 "B. Tozer"]
+
+        dlg = wx.MessageDialog(self, about[0], "About", wx.OK | wx.ICON_INFORMATION)
         result = dlg.ShowModal()
         dlg.Destroy()
 
@@ -5031,31 +5023,30 @@ class AttributeEditor(wx.Frame):
             return
 
     def selection(attribute_edit):
-        pass
-        # # Show cell selection
-        # # If selection is cell...
-        # if attribute_edit.attr_grid.GetSelectedCells():
-        #     # print "Selected cells " + str(attribute_edit.GetSelectedCells())
-        # # If selection is block...
-        # if attribute_edit.attr_grid.GetSelectionBlockTopLeft():
-        #     # print "Selection block top left " + str(attribute_edit.attr_grid.GetSelectionBlockTopLeft())
-        # if attribute_edit.attr_grid.GetSelectionBlockbottomRight():
-        #     # print "Selection block bottom right " + str(attribute_edit.attr_grid.GetSelectionBlockbottomRight())
-        #
-        # # If selection is col...
-        # if attribute_edit.attr_grid.GetSelectedCols():
-        #     # print "Selected cols " + str(attribute_edit.attr_grid.GetSelectedCols())
-        #
-        # # If selection is row...
-        # if attribute_edit.attr_grid.GetSelectedRows():
-        #     # print "Selected rows " + str(attribute_edit.attr_grid.GetSelectedRows())
+        # Show cell selection
+        # If selection is cell...
+        if attribute_edit.attr_grid.GetSelectedCells():
+            print "Selected cells " + str(attribute_edit.GetSelectedCells())
+        # If selection is block...
+        if attribute_edit.attr_grid.GetSelectionBlockTopLeft():
+            print "Selection block top left " + str(attribute_edit.attr_grid.GetSelectionBlockTopLeft())
+        if attribute_edit.attr_grid.GetSelectionBlockbottomRight():
+            print "Selection block bottom right " + str(attribute_edit.attr_grid.GetSelectionBlockbottomRight())
+
+        # If selection is col...
+        if attribute_edit.attr_grid.GetSelectedCols():
+            print "Selected cols " + str(attribute_edit.attr_grid.GetSelectedCols())
+
+        # If selection is row...
+        if attribute_edit.attr_grid.GetSelectedRows():
+            print "Selected rows " + str(attribute_edit.attr_grid.GetSelectedRows())
 
     def currentcell(attribute_edit):
         # Show cursor position
         row = attribute_edit.attr_grid.GetGridCursorRow()
         col = attribute_edit.attr_grid.GetGridCursorCol()
         cell = (row, col)
-        # print "Current cell " + str(cell)
+        print "Current cell " + str(cell)
 
     def copy(attribute_edit):
         # Number of rows and cols
