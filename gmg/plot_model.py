@@ -1,4 +1,6 @@
-"""# %SAVE MODEL AS A EDITABLE VECTOR GRAPHICS FIGURE"""
+"""
+# %SAVE MODEL AS A EDITABLE VECTOR GRAPHICS FIGURE
+"""
 
 '# %IMPORT PYTHON MODULES'
 import numpy as np, copy
@@ -219,9 +221,9 @@ def plot_fig(file_path, area, xp, obs_topo, obs_grav, calc_grav, obs_mag, calc_m
                     continue
                 else:
                     well_data = np.array(well_list[w])
-                    print "!!!!!!!!!!!!!!!!!!!!!!!!"
-                    print "well_data = %s" % well_data
-                    print "!!!!!!!!!!!!!!!!!!!!!!!!"
+                    print ("!!!!!!!!!!!!!!!!!!!!!!!!")
+                    print ("well_data = %s" % well_data)
+                    print ("!!!!!!!!!!!!!!!!!!!!!!!!")
                     y1 = well_data[0, 1].astype(float)* -1.
                     y2 = well_data[-1, -1].astype(float)+(y1.astype(float))
                     well_x_location = well_data[1, 1]

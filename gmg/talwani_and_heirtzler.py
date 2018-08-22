@@ -76,7 +76,7 @@ def ntT(xp, zp, polygons, profile_azimuth, declination, inclination, F, remanenc
             continue
         else:
             '# %DETERMINE ANGLES IN RADIANS'
-            print remanence[i]
+            print (remanence[i])
             if remanence[i] == 1:
                 inclination = angle_a[i]
                 declination = angle_b[i]

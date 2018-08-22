@@ -8,15 +8,14 @@
 3.1 Density
 -----------
 
-In gmg gravity modelling is achieved using *density contrasts* relative to a *reference density* model
-see XX for details related to choosing a reference model.
+Gravity modelling is achieved using bulk *density contrasts* relative to a *reference density*.
 
 Each layer requires:
 
-* 1. An absolute bulk density
-* 2. A reference density
+* An absolute bulk density
+* A reference density
 
-All densities must be supplied using units :math:`kg/m^3`.
+All densities must be input using units :math:`kg/m^3`.
 
 These are input using the attribute side bar or within the *Attribute table*.
 

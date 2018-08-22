@@ -7,9 +7,22 @@
 
 \usepackage[utf8]{inputenc}
 \ifdefined\DeclareUnicodeCharacter
- \ifdefined\DeclareUnicodeCharacterAsOptional\else
+ \ifdefined\DeclareUnicodeCharacterAsOptional
+  \DeclareUnicodeCharacter{"00A0}{\nobreakspace}
+  \DeclareUnicodeCharacter{"2500}{\sphinxunichar{2500}}
+  \DeclareUnicodeCharacter{"2502}{\sphinxunichar{2502}}
+  \DeclareUnicodeCharacter{"2514}{\sphinxunichar{2514}}
+  \DeclareUnicodeCharacter{"251C}{\sphinxunichar{251C}}
+  \DeclareUnicodeCharacter{"2572}{\textbackslash}
+ \else
   \DeclareUnicodeCharacter{00A0}{\nobreakspace}
-\fi\fi
+  \DeclareUnicodeCharacter{2500}{\sphinxunichar{2500}}
+  \DeclareUnicodeCharacter{2502}{\sphinxunichar{2502}}
+  \DeclareUnicodeCharacter{2514}{\sphinxunichar{2514}}
+  \DeclareUnicodeCharacter{251C}{\sphinxunichar{251C}}
+  \DeclareUnicodeCharacter{2572}{\textbackslash}
+ \fi
+\fi
 \usepackage{cmap}
 \usepackage[T1]{fontenc}
 \usepackage{amsmath,amssymb,amstext}
@@ -31,6 +44,9 @@
 \addto\captionsenglish{\renewcommand{\tablename}{Table}}
 \addto\captionsenglish{\renewcommand{\literalblockname}{Listing}}
 
+\addto\captionsenglish{\renewcommand{\literalblockcontinuedname}{continued from previous page}}
+\addto\captionsenglish{\renewcommand{\literalblockcontinuesname}{continues on next page}}
+
 \addto\extrasenglish{\def\pageautorefname{page}}
 
 \setcounter{tocdepth}{0}
@@ -38,7 +54,7 @@
 
 
 \title{gui Documentation}
-\date{Jun 20, 2017}
+\date{May 27, 2018}
 \release{1}
 \author{B. Tozer}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -75,7 +91,7 @@ Following the steps listed below should ensure everything that is required to ru
 
 
 \chapter{Operating System}
-\label{\detokenize{installation:installation}}\label{\detokenize{installation::doc}}\label{\detokenize{installation:operating-system}}\label{\detokenize{installation:id1}}
+\label{\detokenize{installation:id1}}\label{\detokenize{installation::doc}}\label{\detokenize{installation:operating-system}}\label{\detokenize{installation:installation}}
 \begin{sphinxadmonition}{note}{Note:}
 gmg is (for the time being) is only tested and supported on the Ubuntu 14.04 LINUX operating system.
 Issues may arise when trying to install on other distributions.
@@ -126,6 +142,7 @@ managing tool that can be used to install additional packages including fatiando
 Install wxPython. On Ubuntu linux the simplest way to ensure you have everything that is required
 is to copy the command below and paste in the command line of a terminal:
 
+\fvset{hllines={, ,}}%
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{n}{sudo} \PYG{n}{apt}\PYG{o}{\PYGZhy{}}\PYG{n}{get} \PYG{n}{install} \PYG{n}{python}\PYG{o}{\PYGZhy{}}\PYG{n}{wxgtk2}\PYG{o}{.}\PYG{l+m+mi}{8} \PYG{n}{python}\PYG{o}{\PYGZhy{}}\PYG{n}{wxtools} \PYG{n}{wx2}\PYG{o}{.}\PYG{l+m+mi}{8}\PYG{o}{\PYGZhy{}}\PYG{n}{i18n} \PYG{n}{libwxgtk2}\PYG{o}{.}\PYG{l+m+mi}{8}\PYG{o}{\PYGZhy{}}\PYG{n}{dev} \PYG{n}{libgtk2}\PYG{o}{.}\PYG{l+m+mi}{0}\PYG{o}{\PYGZhy{}}\PYG{n}{dev}
 \end{sphinxVerbatim}
@@ -138,12 +155,14 @@ Unzip the gmg package into any directory e.g. \sphinxstyleemphasis{\textasciitil
 Open a terminal and navigate to the directory that contains your fatiando installation.
 This is likely to be:
 
+\fvset{hllines={, ,}}%
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{n}{cd} \PYG{o}{\PYGZti{}}\PYG{o}{/}\PYG{n}{anaconda}\PYG{o}{/}\PYG{n}{lib}\PYG{o}{/}\PYG{n}{python2}\PYG{o}{.}\PYG{l+m+mi}{7}\PYG{o}{/}\PYG{n}{site}\PYG{o}{\PYGZhy{}}\PYG{n}{packages}\PYG{o}{/}\PYG{n}{fatiando}
 \end{sphinxVerbatim}
 
 Move the gui directory from gmg into the fatiando directory e.g.:
 
+\fvset{hllines={, ,}}%
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{n}{mv} \PYG{o}{\PYGZti{}}\PYG{o}{/}\PYG{n}{Downloads}\PYG{o}{/}\PYG{n}{gmg}\PYG{o}{/}\PYG{n}{gui} \PYG{o}{.}
 \end{sphinxVerbatim}
@@ -181,12 +200,14 @@ A directory called icons
 
 Navigate to the fatiando gravmag directory using the command:
 
+\fvset{hllines={, ,}}%
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{n}{cd} \PYG{n}{gravmag}
 \end{sphinxVerbatim}
 
 From the gmg directory \sphinxstyleemphasis{gmg/gravmag} copy the following into the \sphinxstyleemphasis{fatiando/gravmag} directory e.g.:
 
+\fvset{hllines={, ,}}%
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{n}{cp} \PYG{o}{\PYGZti{}}\PYG{o}{/}\PYG{n}{Downloads}\PYG{o}{/}\PYG{n}{gmg}\PYG{o}{/}\PYG{n}{gravmag}\PYG{o}{/}\PYG{o}{*}\PYG{o}{.}\PYG{n}{py} \PYG{o}{.}
 \end{sphinxVerbatim}
@@ -213,12 +234,14 @@ The script: won\_and\_bevis\_mag2d.py
 \label{\detokenize{installation:step-4}}
 In the gmg directory make the \sphinxstyleemphasis{GMG.py} script executable using the command:
 
+\fvset{hllines={, ,}}%
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{n}{chmod} \PYG{l+m+mi}{777} \PYG{n}{gmg}\PYG{o}{.}\PYG{n}{py}
 \end{sphinxVerbatim}
 
 Now move gmg.py into you \sphinxstyleemphasis{/bin} directory or any other directory that is within your \sphinxstyleemphasis{\$PATH} variable e.g.:
 
+\fvset{hllines={, ,}}%
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{n}{sudo} \PYG{n}{mv} \PYG{n}{GMG}\PYG{o}{.}\PYG{n}{py} \PYG{o}{/}\PYG{n+nb}{bin}\PYG{o}{/}\PYG{n}{GMG}\PYG{o}{.}\PYG{n}{py}
 \end{sphinxVerbatim}
@@ -231,6 +254,7 @@ You should now be able to launch gmg from a terminal by typing \sphinxstyleempha
 \begin{sphinxadmonition}{tip}{Tip:}
 You can also edit your .bashrc file and create a custom launch command for GMG by adding an alias such as:
 
+\fvset{hllines={, ,}}%
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{n}{alias} \PYG{n}{GMG}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{python /bin/GMG.py}\PYG{l+s+s1}{\PYGZsq{}}
 \end{sphinxVerbatim}
@@ -238,10 +262,10 @@ You can also edit your .bashrc file and create a custom launch command for GMG b
 
 
 \chapter{\sphinxstylestrong{Manual}}
-\label{\detokenize{manual:manual}}\label{\detokenize{manual::doc}}\label{\detokenize{manual:gui-manual}}
+\label{\detokenize{manual:gui-manual}}\label{\detokenize{manual::doc}}\label{\detokenize{manual:manual}}
 
 \section{\sphinxstylestrong{Icon Shortcuts}}
-\label{\detokenize{manual__icons:icon-shortcuts}}\label{\detokenize{manual__icons::doc}}\label{\detokenize{manual__icons:icons}}
+\label{\detokenize{manual__icons:icons}}\label{\detokenize{manual__icons::doc}}\label{\detokenize{manual__icons:icon-shortcuts}}
 
 \begin{savenotes}\sphinxattablestart
 \centering
@@ -311,7 +335,7 @@ You can also edit your .bashrc file and create a custom launch command for GMG b
 
 
 \section{\sphinxstylestrong{Keyboard Shortcuts}}
-\label{\detokenize{manual__keyboard_shortcuts:keys}}\label{\detokenize{manual__keyboard_shortcuts:keyboard-shortcuts}}\label{\detokenize{manual__keyboard_shortcuts::doc}}
+\label{\detokenize{manual__keyboard_shortcuts::doc}}\label{\detokenize{manual__keyboard_shortcuts:keyboard-shortcuts}}\label{\detokenize{manual__keyboard_shortcuts:keys}}
 
 \begin{savenotes}\sphinxattablestart
 \centering
@@ -383,18 +407,21 @@ Before creating a new model, it is recommended that you create a directory struc
 all of the data related to the model. This can be structured in any way the user wishes but the directory structure
 as outlined below is useful:
 
+\fvset{hllines={, ,}}%
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{n}{mkdir} \PYG{o}{*}\PYG{n}{model}\PYG{o}{\PYGZhy{}}\PYG{n}{name}\PYG{o}{*}\PYG{n}{\PYGZus{}MODEL}
 \end{sphinxVerbatim}
 
 Then:
 
+\fvset{hllines={, ,}}%
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{n}{cd} \PYG{n}{model}\PYG{o}{\PYGZhy{}}\PYG{n}{name\PYGZus{}MODEL}
 \end{sphinxVerbatim}
 
 and create the following directory structure:
 
+\fvset{hllines={, ,}}%
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{n}{mkdir} \PYG{n}{MODELS} \PYG{n}{GRAVITY\PYGZus{}DATA} \PYG{n}{MAGNETIC\PYGZus{}DATA} \PYG{n}{SEGY\PYGZus{}DATA} \PYG{n}{WELL\PYGZus{}DATA} \PYG{n}{GEOLOGICAL\PYGZus{}DATA} \PYG{n}{POINT\PYGZus{}DATA} \PYG{n}{EXPORTS} \PYG{n}{FIGURES}
 \end{sphinxVerbatim}
@@ -453,7 +480,7 @@ Your model will be loaded into the current gmg window.
 
 
 \section{\sphinxstylestrong{2.0 Model Layers}}
-\label{\detokenize{manual__layer_nodes:model-layers}}\label{\detokenize{manual__layer_nodes::doc}}
+\label{\detokenize{manual__layer_nodes::doc}}\label{\detokenize{manual__layer_nodes:model-layers}}
 \begin{DUlineblock}{0em}
 \item[] 
 \end{DUlineblock}
@@ -510,17 +537,17 @@ press the \sphinxstyleemphasis{‘d’} key to delete the new node.
 
 \subsection{2.4 Pinching nodes}
 \label{\detokenize{manual__layer_nodes:pinching-nodes}}
-To pinch a node onto a node of another layer: Press the \sphinxstyleemphasis{p} key to activate pinch mode.
-Now left click to select the node you wish to pinch to another layer, then select the layer which you would like to pinch
-to for editing and then click on the node to pinch to.
+To “pinch” a node onto a node of another layer: Press the \sphinxstyleemphasis{p} key to activate pinch mode.
+Now select the node you wish to pinch, then switch to the layer which you would like to pinch
+to, finally click on the node to pinch to.
 
-Alternatively, multiple nodes can be pinched or depinched simultaneously to either the layer above or layer below
+Alternatively, multiple nodes can be pinched or depinched simultaneously to the layer above or below
 (as defined in the layer order list) by selecting \sphinxstyleemphasis{‘pinch layer’} in the Menubar.
 A distance range over which to pinch/depinch nodes is then required.
 
 
 \section{\sphinxstylestrong{3.0 Layer attributes}}
-\label{\detokenize{manual__layer_attributes:layer-attributes}}\label{\detokenize{manual__layer_attributes::doc}}
+\label{\detokenize{manual__layer_attributes::doc}}\label{\detokenize{manual__layer_attributes:layer-attributes}}
 \begin{DUlineblock}{0em}
 \item[] 
 \end{DUlineblock}
@@ -528,27 +555,19 @@ A distance range over which to pinch/depinch nodes is then required.
 
 \subsection{3.1 Density}
 \label{\detokenize{manual__layer_attributes:density}}
-In gmg gravity modelling is achieved using \sphinxstyleemphasis{density contrasts} relative to a \sphinxstyleemphasis{reference density} model
-see XX for details related to choosing a reference model.
+Gravity modelling is achieved using bulk \sphinxstyleemphasis{density contrasts} relative to a \sphinxstyleemphasis{reference density}.
 
 Each layer requires:
 \begin{itemize}
-\item {} \begin{enumerate}
 \item {} 
 An absolute bulk density
 
-\end{enumerate}
-
-\item {} \begin{enumerate}
-\setcounter{enumi}{1}
 \item {} 
 A reference density
 
-\end{enumerate}
-
 \end{itemize}
 
-All densities must be supplied using units \(kg/m^3\).
+All densities must be input using units \(kg/m^3\).
 
 These are input using the attribute side bar or within the \sphinxstyleemphasis{Attribute table}.
 
@@ -601,7 +620,7 @@ If the model was orientated North-South the angle would be 68 deg.
 \label{\detokenize{manual__layer_attributes:remenant-magnetism}}
 
 \section{\sphinxstylestrong{4.0 Potential field data}}
-\label{\detokenize{manual__PF:potential-field-data}}\label{\detokenize{manual__PF::doc}}
+\label{\detokenize{manual__PF::doc}}\label{\detokenize{manual__PF:potential-field-data}}
 \begin{DUlineblock}{0em}
 \item[] 
 \end{DUlineblock}
@@ -639,12 +658,11 @@ in the second column. These files may have any suffix.
 
 
 \section{\sphinxstylestrong{5.0 SEGY data}}
-\label{\detokenize{manual__segy:segy-data}}\label{\detokenize{manual__segy::doc}}
+\label{\detokenize{manual__segy::doc}}\label{\detokenize{manual__segy:segy-data}}
 
 \subsection{\sphinxstylestrong{5.1 Loading SEGY data}}
 \label{\detokenize{manual__segy:loading-segy-data}}
-To load observed SEGY data select the \sphinxstyleemphasis{‘SEGY’} menu in the Menubar and select either
-\sphinxstyleemphasis{‘Load observed Gravity anomaly’} or \sphinxstyleemphasis{‘Load observed Magnetic anomaly’}.
+To load observed SEGY data select the \sphinxstyleemphasis{‘SEGY’} menu in the Menubar.
 Next Navigate to the file you want to load and select it.
 The file will automatically be loaded into the canvas.
 
@@ -657,22 +675,22 @@ The SEGY file will be plotted as a pyplot image.
 
 
 \section{\sphinxstylestrong{7.0 Geologic data}}
-\label{\detokenize{manual__geology:geologic-data}}\label{\detokenize{manual__geology::doc}}
+\label{\detokenize{manual__geology::doc}}\label{\detokenize{manual__geology:geologic-data}}
 
 \subsection{\sphinxstylestrong{7.1 Loading geologic data}}
 \label{\detokenize{manual__geology:loading-geologic-data}}
 
 \section{\sphinxstylestrong{8.0 Export Figure}}
-\label{\detokenize{manual__export_figure:export-figure}}\label{\detokenize{manual__export_figure::doc}}
+\label{\detokenize{manual__export_figure::doc}}\label{\detokenize{manual__export_figure:export-figure}}
 
 \chapter{\sphinxstylestrong{Tutorial}}
 \label{\detokenize{tutorial::doc}}\label{\detokenize{tutorial:tutorial}}
 
 \chapter{\sphinxstylestrong{Contribute}}
-\label{\detokenize{contribute:contribute}}\label{\detokenize{contribute::doc}}\label{\detokenize{contribute:contibute}}
+\label{\detokenize{contribute::doc}}\label{\detokenize{contribute:contribute}}\label{\detokenize{contribute:contibute}}
 
 \chapter{\sphinxstylestrong{References}}
-\label{\detokenize{references:references}}\label{\detokenize{references::doc}}\label{\detokenize{references:id1}}
+\label{\detokenize{references:references}}\label{\detokenize{references:id1}}\label{\detokenize{references::doc}}
 \sphinxstylestrong{Fatiando a Terra}
 
 Uieda, L, Oliveira Jr, V C, Ferreira, A, Santos, H B; Caparica Jr, J F (2014), Fatiando a Terra: a Python package for
@@ -719,7 +737,7 @@ Icons designed using: \sphinxurl{https://freeiconmaker.com/}
 
 
 \chapter{\sphinxstylestrong{Licencing}}
-\label{\detokenize{licence::doc}}\label{\detokenize{licence:licencing}}\label{\detokenize{licence:licence}}
+\label{\detokenize{licence::doc}}\label{\detokenize{licence:licence}}\label{\detokenize{licence:licencing}}
 
 \section{gmg Licence}
 \label{\detokenize{licence:gmg-licence}}
@@ -793,6 +811,11 @@ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
 ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+\section{ObsPy Licence}
+\label{\detokenize{licence:obspy-licence}}
+GNU Lesser General Public License, Version 3 (\sphinxurl{https://www.gnu.org/copyleft/lesser.html})
 
 
 

@@ -46,10 +46,10 @@ press the *'d'* key to delete the new node.
 ------------------
 2.4 Pinching nodes
 ------------------
-To pinch a node onto a node of another layer: Press the *p* key to activate pinch mode.
-Now left click to select the node you wish to pinch to another layer, then select the layer which you would like to pinch
-to for editing and then click on the node to pinch to.
+To "pinch" a node onto a node of another layer: Press the *p* key to activate pinch mode.
+Now select the node you wish to pinch, then switch to the layer which you would like to pinch
+to, finally click on the node to pinch to.
 
-Alternatively, multiple nodes can be pinched or depinched simultaneously to either the layer above or layer below
+Alternatively, multiple nodes can be pinched or depinched simultaneously to the layer above or below
 (as defined in the layer order list) by selecting *'pinch layer'* in the Menubar.
 A distance range over which to pinch/depinch nodes is then required.
